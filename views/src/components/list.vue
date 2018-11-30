@@ -1,81 +1,48 @@
 <template>
   <div class="list">
-    <div class="index-title">
-        赞助表
-    </div>
-    <div class="index-title" v-if="index === 2">
-        除了自定义称号，其他的都是唯一的
-    </div>
+    <div class="index-title">赞助表</div>
+    <div class="index-title" v-if="index === 2">除了自定义称号，其他的都是唯一的</div>
     <div class="list-main" v-if="index === k" v-for="(i, k) in arr" :key="k">
-
-
-        
-<div class="table">
-         <v-data-table
-    :headers="headers"
-    :items="i.arr"
-    :rows-per-page-items='[{ text: "$vuetify.dataIterator.rowsPerPageAll", "value": -1 }]'
-    class="elevation-1"
-  >
-    <template slot="items" slot-scope="props">
-      <td> <span :class="'sprite-icon sprite-icon-'+props.item.id"></span> </td>
-      <td >{{ props.item.name }}</td>
-      <td class="td-price">{{ getPrice(props.item) }}
-
-      </td>
-      <td >
-          <v-btn @click="dialog=true" color="primary">购买</v-btn>
-          </td>
-    </template>
-  </v-data-table>
-</div>
-    </div>
-<v-dialog
-      v-model="dialog"
-      width="1180"
-    >
-      <v-card>
-        <v-card-title
-          class="headline grey lighten-2"
-          primary-title
+      <div class="table">
+        <v-data-table
+          :headers="headers"
+          :items="i.arr"
+          :rows-per-page-items="[{ text: '$vuetify.dataIterator.rowsPerPageAll', 'value': -1 }]"
+          class="elevation-1"
         >
-          请选择支付方式（注意备注自己的游戏ID）
-        </v-card-title>
+          <template slot="items" slot-scope="props">
+            <td>
+              <img :src="props.item.img" v-if="props.item.img" alt>
+              <span v-if="!props.item.img" :class="'sprite-icon sprite-icon-'+props.item.id"></span>
+            </td>
+            <td>{{ props.item.name }}</td>
+            <td class="td-price">{{ getPrice(props.item) }}</td>
+            <td>
+              <v-btn @click="dialog=true" color="primary" v-if="!props.item.kong">购买</v-btn>
+            </td>
+          </template>
+        </v-data-table>
+      </div>
+    </div>
+    <v-dialog v-model="dialog" width="1180">
+      <v-card>
+        <v-card-title class="headline grey lighten-2" primary-title>请选择支付方式（注意备注自己的游戏ID）</v-card-title>
 
         <v-card-text>
-            <v-tabs
-      v-model="active"
-      dark
-      slider-color="yellow"
-    >
-      <v-tab
-        v-for="n in play"
-        :key="n"
-        ripple
-      >
-         {{ n }}
-
-      </v-tab>
-    </v-tabs>
-    <div class="index-title">
-        {{play[active]}} 支付（注意备注自己的游戏ID）
-    </div>
-          <img v-if="active===0" class="palyImg" src="/static/qq.JPG" alt="">
-          <img v-if="active===1" class="palyImg" src="/static/wx.JPG" alt="">
-          <img v-if="active===2" class="palyImg" src="/static/zfb.JPG" alt="">
+          <v-tabs v-model="active" dark slider-color="yellow">
+            <v-tab v-for="n in play" :key="n" ripple>{{ n }}</v-tab>
+          </v-tabs>
+          <div class="index-title">{{play[active]}} 支付（注意备注自己的游戏ID）</div>
+          <img v-if="active===0" class="palyImg" src="/static/qq.JPG" alt>
+          <img v-if="active===1" class="palyImg" src="/static/wx.JPG" alt>
+          <img v-if="active===2" class="palyImg" src="/static/zfb.JPG" alt>
         </v-card-text>
 
         <v-divider></v-divider>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            flat
-            @click="dialog = false"
-          >
-            关闭窗口
-          </v-btn>
+          <v-btn color="primary" flat @click="dialog = false">关闭窗口</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -128,6 +95,9 @@ export default {
       this.index = n;
     },
     getPrice(i) {
+      if (i.kong) {
+        return i.kong;
+      }
       if (i.price) {
         return i.price;
       } else {

@@ -122,7 +122,7 @@ export default {
     }, {
         id: '491',
         name: '达克莱伊',
-        zz: 9980
+        zz: 600
     }, {
         id: '492',
         name: '谢米',
