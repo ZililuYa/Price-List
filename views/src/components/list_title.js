@@ -20,6 +20,16 @@ export default {
         kong: '已经被MoZi买走了'
     }, {
         id: '000',
+        name: '阿渡',
+        img: 'https://s1.52poke.wiki/wiki/a/ab/%E9%98%BF%E6%B8%A1_OD_B2W2.png',
+        kong: '已经被xiluoo买走了'
+    }, {
+        id: '000',
+        name: '大吾',
+        img: 'https://s1.52poke.wiki/wiki/c/c2/%E5%A4%A7%E5%90%BE_OD_B2W2.png',
+        kong: '已经被Gou_Xuan买走了'
+    }, {
+        id: '000',
         name: '深灰市道馆馆主~小刚',
         img: 'https://s1.52poke.wiki/wiki/1/1b/%E5%B0%8F%E5%88%9A_OD_HGSS.png',
         price: 10
